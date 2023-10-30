@@ -1,0 +1,44 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background: url('images/lovely_space_kitten-wallpaper-1600x900.jpg') no-repeat;
+    background-size:cover;
+    background-position: center;
+}
+
+.header{
+    left:0;
+    top:0;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    background:rgba(0,0,0,.1);
+    backdrop-filter: blur(50px);
+    padding:1.3rem 10%;
+    position: fixed;
+    width:100%;
+    z-index: 100;
+}
+
+.logo{
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    font-size:2rem;
+}
+
+.navbar a{
+    font-family: sans-serif;
+    font-size: 1.15rem;
+    font-weight:500;
+    margin-left:2rem;
+    color:#fff;
+    text-decoration: none;
+}
