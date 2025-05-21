@@ -503,13 +503,24 @@
 
 
 // Modify your game card creation to include data attributes
+
+// Make sure this is in your script section
 function renderGames(games) {
     const gameContainer = document.getElementById('gameContainer');
+    if (!gameContainer) {
+        console.error("Game container not found!");
+        return;
+    }
+    
     gameContainer.innerHTML = '';
     
     games.forEach((game, index) => {
         const gameCard = document.createElement('div');
         gameCard.className = 'game-card';
+        
+        // Add CSS via JavaScript as fallback
+        gameCard.style.cursor = 'pointer';
+        
         gameCard.innerHTML = `
             <img src="${game.image}" alt="${game.title}" loading="lazy">
             <div class="game-info">
@@ -525,11 +536,9 @@ function renderGames(games) {
             </div>
         `;
         
-        // Add cursor pointer to indicate clickability
-        gameCard.style.cursor = 'pointer';
-        
-        // Add click handler - THIS IS THE CRUCIAL PART
+        // Debugging click handler
         gameCard.addEventListener('click', () => {
+            console.log(`Game ${index} clicked: ${game.title}`);
             loadGameDetailsPage(index);
         });
         
@@ -537,6 +546,17 @@ function renderGames(games) {
     });
 }
 
+function loadGameDetailsPage(index) {
+    console.log(`Loading details for game index: ${index}`);
+    sessionStorage.setItem('currentGameIndex', index);
+    window.location.href = 'game-details.html';
+}
+
+// Initialize with debug checks
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Initializing game cards...");
+    displayGames(); // Your existing function that calls renderGames
+});
         // Enhanced JavaScript with animations
         document.addEventListener('DOMContentLoaded', () => {
             // Load content with a slight delay for better perceived performance
