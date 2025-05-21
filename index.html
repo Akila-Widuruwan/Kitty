@@ -26,6 +26,47 @@
             box-sizing: border-box;
             font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        // Modify your game card creation to include data attributes
+function renderGames(games) {
+    const gameContainer = document.getElementById('gameContainer');
+    gameContainer.innerHTML = '';
+    
+    games.forEach((game, index) => {
+        const gameCard = document.createElement('div');
+        gameCard.className = 'game-card';
+        gameCard.innerHTML = `
+            <img src="${game.image}" alt="${game.title}" loading="lazy">
+            <div class="game-info">
+                <h3>${game.title}</h3>
+                <span class="genre-tag">${game.genre}</span>
+                <p>${game.description.substring(0, 100)}...</p>
+                <div class="game-meta">
+                    <span class="platform-tag">${game.platform.split(',')[0].trim()}</span>
+                    <span class="rating">
+                        <i class="fas fa-star"></i> ${game.rating}
+                    </span>
+                </div>
+            </div>
+        `;
+        
+        // Add click handler
+        gameCard.addEventListener('click', () => {
+            loadGameDetailsPage(index);
+        });
+        
+        gameContainer.appendChild(gameCard);
+    });
+}
+
+// Function to load game details page
+function loadGameDetailsPage(gameIndex) {
+    // Store the game index in session storage
+    sessionStorage.setItem('currentGameIndex', gameIndex);
+    
+    // Redirect to the details page
+    window.location.href = 'game-details.html';
+}
         
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
