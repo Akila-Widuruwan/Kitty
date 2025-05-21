@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details | GameHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reuse your existing styles and add these new ones */
+        
+        .game-details-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .game-details-header {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .game-details-header {
+                flex-direction: row;
+            }
+        }
+        
+        .game-cover {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .game-header-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .game-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .game-meta-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .meta-item {
+            background-color: var(--darker);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meta-item i {
+            color: var(--secondary);
+        }
+        
+        .game-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .game-screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.03);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+        
+        .requirements-section {
+            background-color: var(--darker);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .requirements-item h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .buy-now-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+        
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .buy-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
+        }
+        
+        .buy-button:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Reuse your existing header and nav from index.html -->
+    <header>
+        <h1>GameHub</h1>
+        <p>Your ultimate gaming portal</p>
+    </header>
+    
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html#games"><i class="fas fa-gamepad"></i> Games</a>
+        <a href="index.html#news"><i class="fas fa-newspaper"></i> News</a>
+        <a href="index.html#about"><i class="fas fa-info-circle"></i> About</a>
+    </nav>
+    
+    <div class="game-details-container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Games
+        </a>
+        
+        <div id="gameDetailsContent">
+            <div class="loading">Loading game details...</div>
+        </div>
+    </div>
+    
+    <!-- Reuse your existing footer from index.html -->
+    <footer>
+        <p>&copy; 2023 GameHub. All rights reserved.</p>
+        <p>Powered by the gaming community</p>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration (same as your main page)
+        const SHEET_ID = '17giz24fZAArYrRTKvZTDlgcfPQpCWeqcXcVJCpDAcJY';
+        const API_KEY = 'AIzaSyC8h1HG7a6337xhlRhC7RFgjs4dK3ABJjw';
+        const GAMES_SHEET = 'GamesDetails';
+        
+        // Get the game index from session storage
+        const gameIndex = sessionStorage.getItem('currentGameIndex');
+        
+        // Function to fetch detailed game data
+        async function fetchGameDetails() {
+            try {
+                const sheetData = await fetchSheetData(GAMES_SHEET);
+                
+                if (sheetData && sheetData.length > 1) {
+                    // Skip header row and get the specific game
+                    const gameRow = sheetData[parseInt(gameIndex) + 1];
+                    
+                    // Assuming your sheet now has these additional columns:
+                    // Title, Genre, Platform, Rating, ImageURL, Description, 
+                    // Screenshots (comma separated URLs), Developer, ReleaseDate, 
+                    // Price, OSRequirements, Processor, Memory, Graphics, Storage
+                    
+                    return {
+                        title: gameRow[0] || 'Unknown Game',
+                        genre: gameRow[1] || 'Various',
+                        platform: gameRow[2] || 'Multi-platform',
+                        rating: gameRow[3] || '0',
+                        image: gameRow[4] || 'https://via.placeholder.com/800x450?text=Game+Cover',
+                        description: gameRow[5] || 'No description available.',
+                        screenshots: gameRow[6] ? gameRow[6].split(',') : [],
+                        developer: gameRow[7] || 'Unknown Developer',
+                        releaseDate: gameRow[8] || 'Coming Soon',
+                        price: gameRow[9] || '0',
+                        osRequirements: gameRow[10] || 'Not specified',
+                        processor: gameRow[11] || 'Not specified',
+                        memory: gameRow[12] || 'Not specified',
+                        graphics: gameRow[13] || 'Not specified',
+                        storage: gameRow[14] || 'Not specified'
+                    };
+                } else {
+                    // Fallback to sample data
+                    return getSampleGameDetails(gameIndex);
+                }
+            } catch (error) {
+                console.error('Error fetching game details:', error);
+                return getSampleGameDetails(gameIndex);
+            }
+        }
+        
+        // Function to display game details
+        async function displayGameDetails() {
+            const game = await fetchGameDetails();
+            const contentDiv = document.getElementById('gameDetailsContent');
+            
+            if (!game) {
+                contentDiv.innerHTML = '<div class="error">Failed to load game details. <a href="index.html">Return to games list</a></div>';
+                return;
+            }
+            
+            contentDiv.innerHTML = `
+                <div class="game-details-header">
+                    <div class="game-cover">
+                        <img src="${game.image}" alt="${game.title} Cover">
+                    </div>
+                    <div class="game-header-info">
+                        <h1 class="game-title">${game.title}</h1>
+                        <div class="game-meta-details">
+                            <span class="meta-item">
+                                <i class="fas fa-star"></i> ${game.rating}/5
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-gamepad"></i> ${game.platform}
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-calendar-alt"></i> ${game.releaseDate}
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-user-cog"></i> ${game.developer}
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-tag"></i> ${game.genre}
+                            </span>
+                        </div>
+                        <p class="game-description">${game.description}</p>
+                    </div>
+                </div>
+                
+                ${game.screenshots.length > 0 ? `
+                <h2>Screenshots</h2>
+                <div class="game-screenshots">
+                    ${game.screenshots.map(url => `
+                        <div class="screenshot">
+                            <img src="${url.trim()}" alt="${game.title} Screenshot">
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                <h2>System Requirements</h2>
+                <div class="requirements-section">
+                    <div class="requirements-grid">
+                        <div class="requirements-item">
+                            <h4><i class="fas fa-desktop"></i> OS</h4>
+                            <p>${game.osRequirements}</p>
+                        </div>
+                        <div class="requirements-item">
+                            <h4><i class="fas fa-microchip"></i> Processor</h4>
+                            <p>${game.processor}</p>
+                        </div>
+                        <div class="requirements-item">
+                            <h4><i class="fas fa-memory"></i> Memory</h4>
+                            <p>${game.memory}</p>
+                        </div>
+                        <div class="requirements-item">
+                            <h4><i class="fas fa-video"></i> Graphics</h4>
+                            <p>${game.graphics}</p>
+                        </div>
+                        <div class="requirements-item">
+                            <h4><i class="fas fa-hdd"></i> Storage</h4>
+                            <p>${game.storage}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buy-now-section">
+                    <h3>Ready to play?</h3>
+                    <div class="price-tag">$${game.price}</div>
+                    <a href="#" class="buy-button">Buy Now</a>
+                </div>
+            `;
+        }
+        
+        // Helper function to fetch sheet data
+        async function fetchSheetData(sheetName) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}?key=${API_KEY}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.values;
+        }
+        
+        // Sample data for fallback
+        function getSampleGameDetails(index) {
+            const sampleGames = [
+                {
+                    title: "Cyber Odyssey: Neon Dawn",
+                    genre: "RPG",
+                    platform: "PC, PS5, Xbox Series X",
+                    rating: "4.8",
+                    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    description: "An epic open-world RPG set in a dystopian future where you must uncover the truth about the digital afterlife. Explore vast neon-lit cities and make choices that affect the game world. With over 100 hours of gameplay and multiple endings, your decisions truly matter in this immersive experience.",
+                    screenshots: [
+                        "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1589254065874-42e6c1e1c3f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    ],
+                    developer: "Neon Games Studio",
+                    releaseDate: "October 15, 2023",
+                    price: "59.99",
+                    osRequirements: "Windows 10 64-bit",
+                    processor: "Intel Core i7-9700K or AMD Ryzen 7 3700X",
+                    memory: "16 GB RAM",
+                    graphics: "NVIDIA RTX 2070 or AMD RX 5700 XT",
+                    storage: "70 GB available space"
+                },
+                {
+                    title: "Galaxy Racers X",
+                    genre: "Racing",
+                    platform: "PS5, Xbox Series X, Nintendo Switch",
+                    rating: "4.2",
+                    image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                    description: "High-speed racing through stunning interstellar tracks with fully customizable spaceships. Compete in galactic tournaments or explore open-world star systems. With over 50 unique tracks and 30 customizable ships, the possibilities are endless in this adrenaline-fueled racing experience.",
+                    screenshots: [
+                        "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1589254065874-42e6c1e1c3f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    ],
+                    developer: "Stellar Games",
+                    releaseDate: "November 3, 2023",
+                    price: "49.99",
+                    osRequirements: "Platform specific",
+                    processor: "Platform specific",
+                    memory: "Platform specific",
+                    graphics: "Platform specific",
+                    storage: "25 GB available space"
+                }
+            ];
+            
+            return sampleGames[index] || sampleGames[0];
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', displayGameDetails);
+    </script>
+</body>
+</html>
