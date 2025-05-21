@@ -3,20 +3,745 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>GameHub - Ultimate Gaming Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Styles */
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary: #00cec9;
+            --dark: #1e272e;
+            --darker: #171e24;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+            --accent-dark: #e84393;
+            --text: #dfe6e9;
+            --text-secondary: #b2bec3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Header with gradient background */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Modern navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background-color: var(--darker);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        nav a i {
+            font-size: 0.9rem;
+        }
+        
+        /* Container with max width */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Hero section with animated gradient */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Section headings */
+        section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        
+        /* Game grid with hover effects */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .game-card {
+            background-color: var(--darker);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .game-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .game-info h3 {
+            margin-bottom: 0.7rem;
+            color: var(--text);
+            font-size: 1.3rem;
+        }
+        
+        .game-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .platform-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .rating {
+            color: #fdcb6e;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .genre-tag {
+            background-color: rgba(0, 206, 201, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        /* News section */
+        .news-section {
+            margin-top: 4rem;
+        }
+        
+        .news-item {
+            background-color: var(--darker);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .news-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .news-item h3 {
+            color: var(--accent);
+            margin-bottom: 0.7rem;
+            font-size: 1.4rem;
+        }
+        
+        .news-date {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .news-date i {
+            font-size: 0.8rem;
+        }
+        
+        .news-item p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: var(--darker);
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Loading animation */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(253, 121, 168, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.6);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .news-item {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-   <header class="header">
-    <a href="" class="logo">Logo</a>
-
-    <nav class="navbar">
-        <a href="" class="">Account</a>
-        <a href="" class="">Gallery</a>
-        <a href="" class="">Services</a>
-        <a href="" class="">Contact</a>
-        <a href="" class="">SignUp</a>
+    <header>
+        <h1>GameHub</h1>
+        <p>Your ultimate gaming portal</p>
+    </header>
+    
+    <nav>
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#games"><i class="fas fa-gamepad"></i> Games</a>
+        <a href="#news"><i class="fas fa-newspaper"></i> News</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
     </nav>
-   </header> 
+    
+    <div class="container">
+        <section id="home" class="hero">
+            <h2>Welcome to GameHub</h2>
+            <p>Discover the latest and greatest games, news, and reviews in the gaming universe</p>
+        </section>
+        
+        <section id="games">
+            <h2>Featured Games</h2>
+            <div class="game-grid" id="gameContainer">
+                <div class="loading">Loading games</div>
+            </div>
+        </section>
+        
+        <section id="news" class="news-section">
+            <h2>Latest News</h2>
+            <div id="newsContainer">
+                <div class="loading">Loading news</div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 GameHub. All rights reserved.</p>
+        <p>Powered by the gaming community</p>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+        </div>
+    </footer>
+
+    <a href="#home" class="fab" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Enhanced JavaScript with animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load content with a slight delay for better perceived performance
+            setTimeout(() => {
+                displayGames();
+                displayNews();
+            }, 500);
+            
+            // Add scroll reveal animation
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.game-card, .news-item');
+                elements.forEach(el => {
+                    const elementPosition = el.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animation
+            document.querySelectorAll('.game-card, .news-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+        
+        // Google Sheets configuration (same as before)
+        const SHEET_ID = '17giz24fZAArYrRTKvZTDlgcfPQpCWeqcXcVJCpDAcJY';
+        const API_KEY = 'AIzaSyC8h1HG7a6337xhlRhC7RFgjs4dK3ABJjw';
+        const GAMES_SHEET = 'Games';
+        const NEWS_SHEET = 'News';
+        
+        // Enhanced fetch function with loading states
+        async function fetchSheetData(sheetName) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}?key=${API_KEY}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                return data.values;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+        }
+        
+        // Enhanced game display with animations
+        async function displayGames() {
+            const gameContainer = document.getElementById('gameContainer');
+            gameContainer.innerHTML = '<div class="loading">Loading games</div>';
+            
+            try {
+                const sheetData = await fetchSheetData(GAMES_SHEET);
+                let games = [];
+                
+                if (sheetData && sheetData.length > 1) {
+                    games = sheetData.slice(1).map(row => ({
+                        title: row[0] || 'Unknown Game',
+                        genre: row[1] || 'Various',
+                        platform: row[2] || 'Multi-platform',
+                        rating: row[3] ? parseFloat(row[3]) : (Math.random() * 2 + 3).toFixed(1),
+                        image: row[4] || getRandomGameImage(),
+                        description: row[5] || 'An exciting adventure awaits in this thrilling game.'
+                    }));
+                } else {
+                    games = getSampleGameData();
+                }
+                
+                renderGames(games);
+            } catch (error) {
+                gameContainer.innerHTML = '<div class="loading">Failed to load games. Showing sample data.</div>';
+                renderGames(getSampleGameData());
+            }
+        }
+        
+        function renderGames(games) {
+            const gameContainer = document.getElementById('gameContainer');
+            gameContainer.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}" loading="lazy">
+                    <div class="game-info">
+                        <h3>${game.title}</h3>
+                        <span class="genre-tag">${game.genre}</span>
+                        <p>${game.description.substring(0, 100)}...</p>
+                        <div class="game-meta">
+                            <span class="platform-tag">${game.platform.split(',')[0].trim()}</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i> ${game.rating}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                gameContainer.appendChild(gameCard);
+            });
+        }
+        
+        // Enhanced news display
+        async function displayNews() {
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = '<div class="loading">Loading news</div>';
+            
+            try {
+                const sheetData = await fetchSheetData(NEWS_SHEET);
+                let newsItems = [];
+                
+                if (sheetData && sheetData.length > 1) {
+                    newsItems = sheetData.slice(1).map(row => ({
+                        title: row[0] || 'News Update',
+                        date: row[1] || new Date().toLocaleDateString(),
+                        content: row[2] || 'Check back soon for more updates!',
+                        image: row[3] || 'https://source.unsplash.com/random/150x150/?gaming'
+                    }));
+                } else {
+                    newsItems = getSampleNewsData();
+                }
+                
+                renderNews(newsItems);
+            } catch (error) {
+                newsContainer.innerHTML = '<div class="loading">Failed to load news. Showing sample data.</div>';
+                renderNews(getSampleNewsData());
+            }
+        }
+        
+        function renderNews(newsItems) {
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = '';
+            
+            newsItems.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <h3>${news.title}</h3>
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> ${news.date}
+                    </div>
+                    <p>${news.content}</p>
+                `;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+        
+        // Helper function for random game images
+        function getRandomGameImage() {
+            const images = [
+                'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+                'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+                'https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+                'https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+                'https://images.unsplash.com/photo-1589254065874-42e6c1e1c3f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80'
+            ];
+            return images[Math.floor(Math.random() * images.length)];
+        }
+        
+        // Sample data generators (enhanced with more variety)
+        function getSampleGameData() {
+            const genres = ['RPG', 'FPS', 'Adventure', 'Strategy', 'Racing', 'Puzzle', 'Horror', 'Simulation'];
+            const platforms = ['PC', 'PS5', 'Xbox Series X', 'Nintendo Switch', 'Mobile'];
+            
+            return [
+                {
+                    title: "Cyber Odyssey: Neon Dawn",
+                    genre: genres[0],
+                    platform: platforms.slice(0, 3).join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "An epic open-world RPG set in a dystopian future where you must uncover the truth about the digital afterlife. Explore vast neon-lit cities and make choices that affect the game world."
+                },
+                {
+                    title: "Galaxy Racers X",
+                    genre: genres[4],
+                    platform: platforms.slice(1, 4).join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "High-speed racing through stunning interstellar tracks with fully customizable spaceships. Compete in galactic tournaments or explore open-world star systems."
+                },
+                {
+                    title: "Shadow Tactics: Legacy",
+                    genre: genres[3],
+                    platform: platforms.slice(0, 2).join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "A real-time tactics masterpiece set in feudal Japan where stealth and strategy are key. Control a team of specialists with unique abilities in this challenging game."
+                },
+                {
+                    title: "Dreamscape: Infinite",
+                    genre: genres[2],
+                    platform: [platforms[0], platforms[1]].join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "Explore a surreal dream world where reality bends to your imagination. Solve mind-bending puzzles and uncover the secrets of the subconscious in this visually stunning adventure."
+                },
+                {
+                    title: "Neon Arena Champions",
+                    genre: genres[1],
+                    platform: [platforms[0], platforms[2]].join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "Fast-paced first-person shooter with neon aesthetics and competitive multiplayer. Join seasonal tournaments and climb the leaderboards in this esports-ready title."
+                },
+                {
+                    title: "Puzzle Dimensions 2",
+                    genre: genres[5],
+                    platform: platforms.join(', '),
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    image: getRandomGameImage(),
+                    description: "Mind-bending puzzles that challenge your perception of space and dimensions. With over 100 levels and a level editor, the possibilities are endless in this sequel."
+                }
+            ];
+        }
+        
+        function getSampleNewsData() {
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const lastWeek = new Date(today);
+            lastWeek.setDate(lastWeek.getDate() - 7);
+            
+            return [
+                {
+                    title: "Cyber Odyssey Expansion Announced",
+                    date: today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                    content: "The developers of Cyber Odyssey have announced a massive expansion called 'Neon Dawn' set to release next month. The expansion will add three new regions, dozens of quests, and a new character class. Early access will be available to season pass holders starting next week.",
+                    image: "https://source.unsplash.com/random/600x400/?cyberpunk"
+                },
+                {
+                    title: "Annual Gaming Awards Winners Revealed",
+                    date: yesterday.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                    content: "The results are in for this year's gaming awards! Game of the Year went to 'Dreamscape: Infinite', while 'Shadow Tactics: Legacy' took home Best Strategy Game. Other notable winners include Best Multiplayer for 'Neon Arena Champions' and Best Art Direction for 'Cyber Odyssey'. See the full list of winners on our awards page.",
+                    image: "https://source.unsplash.com/random/600x400/?award"
+                },
+                {
+                    title: "Next-Gen Console Sales Break Records",
+                    date: lastWeek.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                    content: "The latest sales figures show that next-gen console sales have surpassed all expectations, with over 10 million units sold in the first quarter alone. Analysts predict this will lead to more exclusive titles in the coming year. The PS5 continues to lead in sales, but Xbox Series X is closing the gap with its Game Pass offerings.",
+                    image: "https://source.unsplash.com/random/600x400/?console"
+                },
+                {
+                    title: "Indie Game Festival Highlights Hidden Gems",
+                    date: lastWeek.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                    content: "This year's Indie Game Festival showcased over 200 independent titles, with 'Puzzle Dimensions 2' taking home the grand prize. The event also featured talks from industry veterans about the future of indie development in an increasingly competitive market.",
+                    image: "https://source.unsplash.com/random/600x400/?indie,game"
+                }
+            ];
+        }
+    </script>
 </body>
 </html>
