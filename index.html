@@ -435,6 +435,17 @@
                 padding: 0 1rem;
             }
         }
+        .game-card {
+    /* Add these properties if not already present */
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Ensure no child elements are intercepting clicks */
+.game-card > * {
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -514,22 +525,16 @@ function renderGames(games) {
             </div>
         `;
         
-        // Add click handler
+        // Add cursor pointer to indicate clickability
+        gameCard.style.cursor = 'pointer';
+        
+        // Add click handler - THIS IS THE CRUCIAL PART
         gameCard.addEventListener('click', () => {
             loadGameDetailsPage(index);
         });
         
         gameContainer.appendChild(gameCard);
     });
-}
-
-// Function to load game details page
-function loadGameDetailsPage(gameIndex) {
-    // Store the game index in session storage
-    sessionStorage.setItem('currentGameIndex', gameIndex);
-    
-    // Redirect to the details page
-    window.location.href = 'game-details.html';
 }
 
         // Enhanced JavaScript with animations
